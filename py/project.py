@@ -1,6 +1,7 @@
 from person import *
 from utils import *
 
+
 # 项目
 class Project:
     def __init__(self):
@@ -12,7 +13,7 @@ class Project:
         self.cluster2 = []
 
     # 选出组员
-    def initMembers(self, people):
+    def initMembers(self, people: List[People]):
         nMembers = int(random.uniform(sts.nGroupFloor, sts.nGroupCeiling))
         voteCnt = [0 for _ in range(len(people))]
         for person in people:
@@ -20,10 +21,10 @@ class Project:
                 continue
             voteCnt[person.vote()] += 1
         while True:
-            newMember = rouletteWheelSelection(voteCnt)
+            newMember = people[rouletteWheelSelection(voteCnt)]
             if isinstance(newMember, OrdinaryPerson) and not newMember.acceptJoinProject(self.members):
                 continue
-            self.members.append(people[newMember])
+            self.members.append(newMember)
             if len(self.members) == nMembers:
                 break
 
@@ -99,7 +100,7 @@ class Project:
                 member.probe(self.members)
 
     # 打印信息
-    def print(self, file):
+    def print(self, file: str):
         s = 'begin project:\n'
         for member in self.members:
             dt = {

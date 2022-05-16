@@ -1,10 +1,10 @@
-favorInit = 5
+favorInit = 12
 
 muAbility = 4
 
 sigmaAbility = 2
 
-muEndurance = 1
+muEndurance = 2
 
 sigmaEndurance = 1
 
@@ -20,7 +20,7 @@ lossAskForComplaint = 0.3
 
 lossComplaint = 1
 
-nFriends = 60
+nFriends = 12
 
 lossBetray = 2
 
@@ -30,14 +30,14 @@ lossCooperate = 4
 
 profitBetray = 4
 
-nNicePeople = 20
+nNicePeople = 10
 
-nOrdinaryPeople = 20
+nOrdinaryPeople = 40
 
-nBadPeople = 20
+nBadPeople = 10
 
-nEvilPeople = 20
+nEvilPeople = 10
 
 nPeople = nNicePeople + nOrdinaryPeople + nBadPeople + nEvilPeople
 
-nProjects = nPeople // nGroupFloor * 50
+nProjects = nPeople // nGroupFloor * 150
