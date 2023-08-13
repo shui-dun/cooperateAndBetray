@@ -1,8 +1,8 @@
 # cooperateAndBetray
 
-社会中存在几种不同种类的人，多个人共同完成项目，每一次合作都有类似囚徒困境中的收益奖惩
+社会中存在几种不同种类的人（有的人一直选择与别人合作、有的人一直背叛别人、还有的人开始尝试与别人合作，当被背叛多次后，才会选择背叛对方……），现在让多个人共同完成一个项目，哪种类型的人最终受益最多？
 
-## 人
+## 人的分类
 
 - 能力值 $ability$：做事的能力，符合 $\mathrm{N}\left( \mu_{ability}, \sigma_{ability}^2\right)$，并且是正数
 - 好感列表 $favorLst$：对所有人的好感列表，全部初始化为 $favorInit$
@@ -13,7 +13,7 @@
   - $\mathrm{EVIL}$：一直背叛
 
 
-其中，$favorInit$ 、$\mu_{ability}$ 、$\sigma_{ability}$、$\mu_{endurance}$、$\sigma_{endurance}$、$\mu_{cooperates}$、$\sigma_{cooperates}$ 可由用户指定
+其中， $favorInit$ 、 $\mu_{ability}$ 、 $\sigma_{ability}$、 $\mu_{endurance}$、 $\sigma_{endurance}$、 $\mu_{cooperates}$、 $\sigma_{cooperates}$ 可由用户指定
 
 ## 项目人员确定
 
@@ -23,18 +23,22 @@
 2. 所有类别为 $\mathrm{NICE}$ 或 $\mathrm{ORDINARY}$ 的人根据对其他每个人的好感，使用轮盘赌选择法，分别投出1票
 3. 根据投票数，使用轮盘赌选择法，不断选择项目人员 $x$，直到人数达到 $n_{group}$。注意如果存在另一个组员 $y \in x.blacklist$ 中，则 $x$ 拒绝加入项目
 
-其中，$\underline{n_{group}}$ 和 $\overline{n_{group}}$ 可由用户指定
+其中， $\underline{n_{group}}$ 和 $\overline{n_{group}}$ 可由用户指定
 
 ## 收益与损失的计算
 
 一个项目 $group$ 可划分为 $cluster1$ 和 $cluster2$
 
 - 如果 $cluster1$ 和 $cluster2$ 相互背叛，则 $group$ 中每个人损失 $loss_{betray}$ 
-- 如果 $cluster1$ 和 $cluster2$ 相互合作，则 $group$ 中每个人收益 $profit_{cooperate}$。对一个人 $x$ ，定义 $friends_{x}$ 为 $x.favorLst$ 最高的 $n_{friends}$ 个人，令 $S=\left\{ friends_{x} \mid x\in group\right\} \cup \left\{ group\right\}$，$S$ 中每个人对$group$ 中每个人 $y$ 的好感提升 $\frac{y.ability}{2}$
+- 如果 $cluster1$ 和 $cluster2$ 相互合作，则 $group$ 中每个人收益 $profit_{cooperate}$。对一个人 $x$ ，定义 $friends_{x}$ 为 $x.favorLst$ 最高的 $n_{friends}$ 个人，令 $S = \{ friends_{x} \mid x \in group \} \cup \{ group \}$， $S$ 中每个人对 $group$ 中每个人 $y$ 的好感提升 $\frac{y.ability}{2}$
 - 如果 $cluster1$ 选择与 $cluster2$ 合作，但 $cluster2$ 背叛了 $cluster1$
-  - 首先，$cluster1$ 中每人损失 $loss_{cooperate}$，$cluster2$ 中每人收益 $profit_{betray}$
-  - 随后，$cluster1$ 中进行投诉的人每人损失 $loss_{askForComplaint}$，$cluster2$ 中每个人需要赔偿 $loss_{complaint} \times n_{complaint}$，其中 $n_{complaint}$ 是投诉人数，赔偿将平均分为 $cluster1$ 中的每个人
-  - 最后，对 $S=\left\{ friends_{x} \mid x\in cluster1\right\} \cup \left\{ cluster1\right\}$ ，令 $S$ 的每个人对 $cluster1$ 中的每个人 $y$ 的好感提升 $\frac{y.ability}{2}$，对 $cluster2$ 中每个人的好感降低 $\frac{\sum_{x\in{cluster1}}x.ability}{\left| {cluster1}\right|}$ 
+  - 首先， $cluster1$ 中每人损失 $loss_{cooperate}$， $cluster2$ 中每人收益 $profit_{betray}$
+  - 随后， $cluster1$ 中进行投诉的人每人损失 $loss_{askForComplaint}$， $cluster2$ 中每个人需要赔偿 $loss_{complaint} \times n_{complaint}$，其中 $n_{complaint}$ 是投诉人数，赔偿将平均分为 $cluster1$ 中的每个人
+  - 最后，对 $S=\{ friends_{x} \mid x\in cluster1 \} \cup \{ cluster1 \}$ ，令 $S$ 的每个人对 $cluster1$ 中的每个人 $y$ 的好感提升 $\frac{y.ability}{2}$，对 $cluster2$ 中每个人的好感降低 $\frac{\sum_{x\in{cluster1}}x.ability}{\left| {cluster1}\right|}$ 
 
-其中 $loss_{askForComplaint}$、$loss_{complaint}$、 $n_{friends}$、 $loss_{betray}$、$profit_{cooperate}$、$loss_{cooperate}$ 和 $profit_{betray} $ 均可由用户指定
+其中 $loss_{askForComplaint}$、 $loss_{complaint}$、 $n_{friends}$、 $loss_{betray}$、 $profit_{cooperate}$、 $loss_{cooperate}$ 和 $profit_{betray}$ 均可由用户指定
+
+## 结论
+
+答案与超参数有关，根据超参数的不同，有时合作会获得更大收益，有时背叛会获得更大收益
 

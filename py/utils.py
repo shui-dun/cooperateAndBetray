@@ -12,7 +12,7 @@ def posIntGauss(mu: float, gamma: float) -> int:
 
 
 # 轮盘赌选择法
-def rouletteWheelSelection(fitness: List[float]):
+def rouletteWheelSelection(fitness: List[float]) -> int:
     sumFits = sum(fitness)
     rndPoint = random.uniform(0, sumFits)
     accumulator = 0.0
